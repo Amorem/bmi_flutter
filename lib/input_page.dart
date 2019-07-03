@@ -128,20 +128,22 @@ class _InputPageState extends State<InputPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
-                          FloatingActionButton(
-                            backgroundColor: Color(0XFF4C4F5E),
-                            child: Icon(
-                              Icons.add,
-                              color: Colors.white,
-                            ),
+                          RoundIconButton(
+                            icon: FontAwesomeIcons.plus,
+                            callback: () {
+                              this.setState(() {
+                                weight = weight + 1;
+                              });
+                            },
                           ),
                           SizedBox(width: 10.0),
-                          FloatingActionButton(
-                            backgroundColor: Color(0XFF4C4F5E),
-                            child: Icon(
-                              Icons.add,
-                              color: Colors.white,
-                            ),
+                          RoundIconButton(
+                            icon: FontAwesomeIcons.minus,
+                            callback: () {
+                              this.setState(() {
+                                weight = weight - 1;
+                              });
+                            },
                           ),
                         ],
                       ),
@@ -163,5 +165,25 @@ class _InputPageState extends State<InputPage> {
             )
           ],
         ));
+  }
+}
+
+class RoundIconButton extends StatelessWidget {
+  RoundIconButton({this.icon, this.callback});
+  final IconData icon;
+  final Function callback;
+
+  @override
+  Widget build(BuildContext context) {
+    return RawMaterialButton(
+      child: Icon(icon),
+      onPressed: () {
+        callback();
+      },
+      elevation: 6.0,
+      constraints: BoxConstraints.tightFor(width: 50.0, height: 50.0),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      fillColor: Color(0XFF4C4F5E),
+    );
   }
 }
